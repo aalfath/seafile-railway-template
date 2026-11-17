@@ -35,5 +35,7 @@ if [ ! -e /shared/seafile/seafile-data ]; then
   fi
   : "${INIT_SEAFILE_MYSQL_ROOT_PASSWORD:?INIT_SEAFILE_MYSQL_ROOT_PASSWORD is required on the first start}"
 fi
+# Recover from a first start that was interrupted halfway (see railway-init-guard.py).
+python3 /usr/local/bin/railway-init-guard.py
 
 exec /sbin/my_init -- /scripts/enterpoint.sh
